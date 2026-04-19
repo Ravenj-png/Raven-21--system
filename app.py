@@ -16,7 +16,7 @@ import psycopg2.extras
 import traceback
 
 app = Flask(__name__)
-CORS(app, origins=['https://raven-png.github.io'])
+CORS(app, origins=['https://ravenj-png.github.io'])
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'schoolhub-secret-key-2026')
 app.config['JWT_EXPIRATION_HOURS'] = 24
