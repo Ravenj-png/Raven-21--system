@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <meta name="description" content="Raven Systems - Complete School Management System">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e40af">
+    <title>Raven Systems | Complete System</title>
+    
+    <!-- PWA Files -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%231e40af'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white'%3E🐦%3C/text%3E%3C/svg%3E">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fc;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Cards */
+        .card {
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            border: 1px solid #e5e7eb;
+        }
+
+        .login-box {
+            max-width: 480px;
+            margin: 60px auto;
+        }
+
+        /* Typography */
+        h1 {
+            color: #1e40af;
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: #1e40af;
+            margin-bottom: 22px;
+            font-size: 24px;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #1e40af;
+            margin: 20px 0 14px 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: #374151;
+            margin: 12px 0 8px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Forms */
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 14px;
+            margin: 8px 0;
+            border: 2px solid #d1d5db;
+            border-radius: 12px;
+            font-size: 14px;
+            background: #f9fafb;
+            transition: 0.2s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: #fff;
+        }
+
+        /* Buttons */
+        button {
+            padding: 10px 16px;
+            margin: 5px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.2s;
+            min-height: 40px;
+        }
+
+        .btn-primary { background: #3b82f6; color: #fff; }
+        .btn-danger  { background: #ef4444; color: #fff; }
+        .btn-success { background: #10b981; color: #fff; }
+        .btn-warning { background: #f59e0b; color: #fff; }
+        .btn-info    { background: #06b6d4; color: #fff; }
+        .btn-secondary { background: #64748b; color: #fff; }
+
+        button:hover { opacity: 0.9; transform: scale(0.98); }
+
+        /* Filters & Chips */
+        .filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .filter-chip {
+            padding: 8px 16px;
+            background: #f1f5f9;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            border: 2px solid #e2e8f0;
+            transition: 0.2s;
+        }
+
+        .filter-chip.active {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 16px;
+            margin: 18px 0;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        th {
+            background: #f8fafc;
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fed7aa; color: #9a3412; }
+        .badge-info { background: #dbeafe; color: #1e40af; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+
+        /* Grade badges */
+        .grade-A { background: #dcfce7; color: #166534; }
+        .grade-B { background: #d1fae5; color: #065f46; }
+        .grade-C { background: #fef9c3; color: #854d0e; }
+        .grade-D { background: #fed7aa; color: #9a3412; }
+        .grade-E { background: #fecaca; color: #991b1b; }
+        .grade-F { background: #f3f4f6; color: #374151; }
+
+        /* Profile Card */
+        .profile-card {
+            background: linear-gradient(135deg, #f8fafc, #eff6ff);
+            padding: 20px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        /* Alert Card */
+        .alert-card {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 10px 0;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 14px;
+            margin: 14px 0;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Announcement Card */
+        .announce-card {
+            background: #f9fafb;
+            padding: 14px;
+            border-radius: 12px;
+            margin: 10px 0;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #06b6d4;
+        }
+
+        /* Report Card */
+        .report-card {
+            background: #f9fafb;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 8px;
+            display: inline-block;
+            min-width: 180px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        /* Subject Grid */
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 8px;
+            max-height: 350px;
+            overflow-y: auto;
+            background: #f9fafb;
+            border: 2px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 16px;
+            margin: 10px 0;
+        }
+
+        .subject-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .subject-item.selected {
+            background: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        /* Flex Utilities */
+        .flex { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .text-center { text-align: center; }
+        .error { color: #ef4444; margin-top: 6px; font-size: 13px; }
+        .success { color: #10b981; margin-top: 6px; font-size: 13px; }
+
+        hr { margin: 20px 0; border-color: #e5e7eb; }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 12px;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 24px;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 100%;
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3b82f6;
+            transition: width 0.3s ease;
+        }
+
+        /* Offline Banner */
+        .offline-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ef4444;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            z-index: 10000;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .offline-banner.show {
+            transform: translateY(0);
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111827;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 24px;
+            font-size: 13px;
+            z-index: 99999;
+            animation: toastIn 0.2s ease-out, toastOut 0.2s ease-in 2.6s forwards;
+        }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(14px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        @keyframes toastOut {
+            to { opacity: 0; transform: translateX(-50%) translateY(14px); }
+        }
+
+        /* Hidden sections */
+        .hidden-section {
+            display: none;
+        }
+
+        /* WhatsApp Badge */
+        .wa-badge {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: #25D366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: transform 0.2s;
+        }
+
+        .wa-badge:hover { transform: scale(1.1); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body { padding: 12px; }
+            .card { padding: 16px; }
+            h1 { font-size: 26px; }
+            h2 { font-size: 20px; }
+            .flex { gap: 8px; }
+            button { padding: 8px 12px; font-size: 12px; }
+        }
+
+        @media print {
+            body { background: #fff; padding: 0; }
+            .no-print, button, .wa-badge, .filters { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-banner" id="offlineBanner">⚠️ You are offline. Some features may be limited.</div>
+    <div class="container" id="app"></div>
+
+    <script>
+        // ============ PART 2: GLOBAL STATE & CONFIGURATION ==========
+        
+        const API_BASE = 'http://127.0.0.1:5000';
+        let authToken = localStorage.getItem('raven_token') || null;
+        let currentUser = null;
+        let studentsCache = [];
+        let subjectsCache = [];
+        let teacherSubjectsCache = [];
+        let currentFilter = 'all';
+        let currentTerm = { year: new Date().getFullYear(), term: 1 };
+        
+        // Helper functions
+        function showToast(msg, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.background = type === 'error' ? '#ef4444' : type === 'success' ? '#10b981' : '#111827';
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2800);
+        }
+        
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+        
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const headers = { 'Content-Type': 'application/json' };
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                method,
+                headers,
+                body: body ? JSON.stringify(body) : null
+            });
+            
+            const data = await response.json();
+            if (!response.ok && !data.require_password_creation) {
+                throw new Error(data.error || 'Request failed');
+            }
+            return data;
+        }
+        
+        async function apiUpload(endpoint, formData) {
+            const headers = {};
+            if (authToken) headers['Authorization'] = `Bearer ${authToken}`;
+            
+            const response = await fetch(`${API_BASE}${endpoint}`, {
+                method: 'POST',
+                headers,
+                body: formData
+            });
+            
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || 'Upload failed');
+            return data;
+        }
+        
+        // Logout function
+        function logout() {
+            authToken = null;
+            currentUser = null;
+            localStorage.removeItem('raven_token');
+            showLogin();
+            showToast('Logged out successfully');
+        }
+        
+        // ============ PART 3: AUTHENTICATION (To be continued) ==========
+		// ============ PART 3: AUTHENTICATION ==========
+
+// Student Login
+async function studentLogin() {
+    const phone = document.getElementById('loginPhone')?.value.trim();
+    const password = document.getElementById('loginPassword')?.value;
+    const errorDiv = document.getElementById('loginError');
+    
+    if (!phone) {
+        if (errorDiv) errorDiv.innerHTML = '📱 Phone number required';
+        return;
+    }
+    
+    try {
+        const data = await apiCall('/auth/student/login', 'POST', { phone, password });
+        
+        if (data.require_password_creation) {
+            if (errorDiv) errorDiv.innerHTML = '🔐 First time! Enter a password (min 4 chars) and login again to create your account.';
+            return;
+        }
+        
+        if (data.password_created) {
+            if (errorDiv) errorDiv.innerHTML = '✅ Password created! Logging you in...';
+            setTimeout(() => studentLogin(), 1500);
+            return;
+        }
+        
+        if (data.success) {
+            authToken = data.token;
+            localStorage.setItem('raven_token', authToken);
+            currentUser = data.user;
+            loadDashboard();
+            showToast(`Welcome ${currentUser.name}!`, 'success');
+        }
+    } catch (err) {
+        if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+    }
+}
+
+// Admin/Teacher Login
+async function staffLogin() {
+    const email = document.getElementById('loginEmail')?.value.trim();
+    const password = document.getElementById('loginPassword')?.value;
+    const errorDiv = document.getElementById('loginError');
+    
+    if (!email || !password) {
+        if (errorDiv) errorDiv.innerHTML = '📧 Email and password required';
+        return;
+    }
+    
+    try {
+        const data = await apiCall('/auth/admin/login', 'POST', { email, password });
+        
+        if (data.success) {
+            authToken = data.token;
+            localStorage.setItem('raven_token', authToken);
+            currentUser = data.user;
+            loadDashboard();
+            showToast(`Welcome ${currentUser.email}!`, 'success');
+        }
+    } catch (err) {
+        if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+    }
+}
+
+// Unified Login - detects if phone or email
+async function login() {
+    const input = document.getElementById('loginInput')?.value.trim();
+    const password = document.getElementById('loginPassword')?.value;
+    const errorDiv = document.getElementById('loginError');
+    
+    if (!input || !password) {
+        if (errorDiv) errorDiv.innerHTML = 'Please enter your phone number or email and password';
+        return;
+    }
+    
+    // Check if input looks like a phone number (starts with 0 or +, contains digits)
+    const isPhone = /^[0-9+\-() ]+$/.test(input) && input.length >= 9;
+    
+    if (isPhone) {
+        // Student login
+        try {
+            const data = await apiCall('/auth/student/login', 'POST', { phone: input, password });
+            
+            if (data.require_password_creation) {
+                if (errorDiv) errorDiv.innerHTML = '🔐 First time! Enter a password (min 4 chars) and login again to create your account.';
+                return;
+            }
+            
+            if (data.password_created) {
+                if (errorDiv) errorDiv.innerHTML = '✅ Password created! Logging you in...';
+                setTimeout(() => login(), 1500);
+                return;
+            }
+            
+            if (data.success) {
+                authToken = data.token;
+                localStorage.setItem('raven_token', authToken);
+                currentUser = data.user;
+                loadDashboard();
+                showToast(`Welcome ${currentUser.name}!`, 'success');
+            }
+        } catch (err) {
+            if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+        }
+    } else {
+        // Staff login (admin/teacher)
+        try {
+            const data = await apiCall('/auth/admin/login', 'POST', { email: input, password });
+            
+            if (data.success) {
+                authToken = data.token;
+                localStorage.setItem('raven_token', authToken);
+                currentUser = data.user;
+                loadDashboard();
+                showToast(`Welcome ${currentUser.email}!`, 'success');
+            }
+        } catch (err) {
+            if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+        }
+    }
+}
+
+// Student Forgot Password
+async function forgotPassword() {
+    const phone = prompt('Enter your phone number:');
+    if (!phone) return;
+    
+    const newPassword = prompt('Enter new password (min 4 characters):');
+    if (!newPassword || newPassword.length < 4) {
+        showToast('Password must be at least 4 characters', 'error');
+        return;
+    }
+    
+    try {
+        await apiCall('/auth/reset-password', 'POST', { phone, new_password: newPassword });
+        showToast('Password reset successfully! Login with your new password.', 'success');
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// ============ PART 4: ROLE-BASED DASHBOARD LOADER ==========
+
+async function loadDashboard() {
+    if (!currentUser) {
+        showLogin();
+        return;
+    }
+    
+    const role = currentUser.role;
+    
+    // Fetch initial data based on role
+    if (role === 'admin' || role === 'classteacher') {
+        await loadStudents();
+        await loadSubjects();
+    }
+    
+    if (role === 'teacher' || role === 'classteacher') {
+        await loadTeacherSubjects();
+    }
+    
+    // Render the dashboard based on role
+    renderDashboard();
+}
+
+function renderDashboard() {
+    const role = currentUser.role;
+    const app = document.getElementById('app');
+    
+    // Common header for all roles
+    let html = `
+        <div class="card">
+            <div class="flex-between">
+                <div>
+                    <h2>🐦 Raven Systems</h2>
+                    <div class="flex" style="margin-top: 8px;">
+                        <span class="badge badge-info">${role.toUpperCase()}</span>
+                        <span id="userNameDisplay">👤 ${escapeHtml(currentUser.name || currentUser.email || 'User')}</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <button onclick="showChangePasswordModal()" class="btn-secondary">🔒 Change Password</button>
+                    <button onclick="logout()" class="btn-danger">🚪 Logout</button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Admin Panel (only for admin role)
+    if (role === 'admin') {
+        html += `
+            <div id="adminPanel" class="card">
+                <h3>👑 Admin Controls</h3>
+                <div class="flex">
+                    <button onclick="showAddStudentModal()" class="btn-success">➕ Add Student</button>
+                    <button onclick="showAddTeacherModal()" class="btn-primary">👨‍🏫 Add Teacher</button>
+                    <button onclick="showAddSubjectModal()" class="btn-info">📚 Add Subject</button>
+                    <button onclick="showAssignTeacherModal()" class="btn-warning">🔗 Assign Teacher to Subject</button>
+                    <button onclick="showPromoteModal()" class="btn-secondary">⬆️ Promote Students</button>
+                    <button onclick="exportCSV()" class="btn-secondary">📎 Export CSV</button>
+                    <button onclick="importCSV()" class="btn-secondary">📁 Import CSV</button>
+                </div>
+            </div>
+            
+            <div id="studentsSection" class="card">
+                <h3>📚 Students Management</h3>
+                <div class="filters" id="classFilters"></div>
+                <input type="text" id="searchInput" placeholder="🔍 Search by name or phone..." class="input-field" style="margin: 10px 0;">
+                <div class="table-wrapper" id="studentsTable"></div>
+            </div>
+        `;
+    }
+    
+    // Class Teacher Panel (add students for their class)
+    if (role === 'classteacher') {
+        html += `
+            <div id="classTeacherPanel" class="card">
+                <h3>📝 Class Teacher Actions</h3>
+                <div class="flex">
+                    <button onclick="showAddStudentModal()" class="btn-success">➕ Add Student to Class</button>
+                    <button onclick="viewReviewRequests()" class="btn-warning">📋 Review Requests</button>
+                    <button onclick="viewNotifications()" class="btn-info">🔔 Notifications</button>
+                </div>
+            </div>
+            
+            <div id="studentsSection" class="card">
+                <h3>📚 My Class Students</h3>
+                <input type="text" id="searchInput" placeholder="🔍 Search by name or phone..." class="input-field" style="margin: 10px 0;">
+                <div class="table-wrapper" id="studentsTable"></div>
+            </div>
+        `;
+    }
+    
+    // Teacher Panel (enter marks - for teachers and classteachers)
+    if (role === 'teacher' || role === 'classteacher') {
+        html += `
+            <div id="teacherPanel" class="card">
+                <h3>✏️ Enter Marks</h3>
+                <div class="flex">
+                    <select id="markSubject" class="input-field" style="width: 250px;">
+                        <option value="">Select Subject</option>
+                        ${(teacherSubjectsCache || []).map(s => `<option value="${s.id}">${escapeHtml(s.name)} - ${s.class}</option>`).join('')}
+                    </select>
+                    <select id="markExamType" class="input-field" style="width: 150px;">
+                        <option value="Beginning">Beginning of Term</option>
+                        <option value="Mid">Mid Term</option>
+                        <option value="End">End of Term</option>
+                    </select>
+                    <button onclick="loadSubjectStudents()" class="btn-primary">Load Students</button>
+                </div>
+                <div id="marksEntryList" style="margin-top: 20px;"></div>
+                <button onclick="saveAllMarks()" id="saveMarksBtn" class="btn-success" style="display: none; margin-top: 15px;">💾 Save All Marks</button>
+            </div>
+        `;
+    }
+    
+    // Student Panel (view results, request review - for students and classteachers)
+    if (role === 'student' || role === 'classteacher') {
+        html += `
+            <div id="studentPanel" class="card">
+                <h3>📊 My Performance</h3>
+                <div id="studentResults"></div>
+                <button onclick="requestReview()" class="btn-warning">📝 Request Academic Review</button>
+            </div>
+            
+            <div class="card">
+                <h3>📢 Announcements</h3>
+                <div id="announcementsList"></div>
+            </div>
+        `;
+    }
+    
+    // Reports Section (for all roles)
+    html += `
+        <div class="card">
+            <h3>📄 Generate Report</h3>
+            <div class="flex">
+                <select id="reportStudent" class="input-field" style="width: 250px;">
+                    <option value="">Select Student</option>
+                </select>
+                <button onclick="generateReport()" class="btn-primary">📑 Generate Report</button>
+            </div>
+        </div>
+    `;
+    
+    app.innerHTML = html;
+    
+    // Load data after rendering
+    if (role === 'admin' || role === 'classteacher') {
+        renderClassFilters();
+        renderStudentsTable();
+        document.getElementById('searchInput').oninput = () => renderStudentsTable();
+    }
+    
+    if (role === 'classteacher') {
+        loadClassTeacherData();
+    }
+    
+    if (role === 'student') {
+        loadStudentData();
+    }
+    
+    loadAnnouncements();
+    loadReportStudentSelect();
+}
+
+// ============ PART 5: STUDENT MANAGEMENT (To be continued) ==========
+// ============ PART 4: STUDENT MANAGEMENT ==========
+
+// Load students from backend
+async function loadStudents() {
+    try {
+        const params = new URLSearchParams();
+        if (currentFilter !== 'all') params.set('class', currentFilter);
+        const search = document.getElementById('searchInput')?.value || '';
+        if (search) params.set('search', search);
+        
+        const data = await apiCall(`/students?${params}`);
+        if (data.success) {
+            studentsCache = data.data || [];
+            renderStudentsTable();
+        }
+    } catch (err) {
+        console.error('Load students error:', err);
+        showToast('Failed to load students', 'error');
+    }
+}
+
+function renderClassFilters() {
+    const classes = ['all', 'Senior 1', 'Senior 2', 'Senior 3', 'Senior 4', 'Senior 5', 'Senior 6'];
+    const container = document.getElementById('classFilters');
+    if (!container) return;
+    
+    container.innerHTML = classes.map(c => `
+        <div class="filter-chip ${currentFilter === c ? 'active' : ''}" onclick="setFilter('${c}')">
+            ${c === 'all' ? '📋 All' : c}
+        </div>
+    `).join('');
+}
+
+function setFilter(filter) {
+    currentFilter = filter;
+    renderClassFilters();
+    loadStudents();
+}
+
+function renderStudentsTable() {
+    const container = document.getElementById('studentsTable');
+    if (!container) return;
+    
+    if (!studentsCache.length) {
+        container.innerHTML = '<div class="text-center" style="padding: 32px;">📭 No students found</div>';
+        return;
+    }
+    
+    let html = `<table>
+        <thead>
+            <tr><th>ID</th><th>Name</th><th>Phone</th><th>Class</th><th>Subjects</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+    `;
+    
+    for (const s of studentsCache) {
+        const subjCount = (s.subjects?.length || 0) + (s.subsidiaries?.length || 0);
+        html += `
+            <tr>
+                <td>${s.id}</td>
+                <td><strong>${escapeHtml(s.name)}</strong></td>
+                <td>${escapeHtml(s.phone)}</td>
+                <td>${s.class}</td>
+                <td>${subjCount} subjects</td>
+                <td class="flex" style="gap: 5px;">
+                    <button onclick="viewStudentResults(${s.id})" class="btn-info">📊 Results</button>
+                    <button onclick="editStudent(${s.id})" class="btn-secondary">✏️ Edit</button>
+                    <button onclick="deleteStudent(${s.id})" class="btn-danger">🗑️ Delete</button>
+                    <button onclick="uploadStudentImage(${s.id})" class="btn-primary">📷 Photo</button>
+                </td>
+            </tr>
+        `;
+    }
+    
+    html += `</tbody></table>`;
+    container.innerHTML = html;
+}
+
+// Add Student Modal
+function showAddStudentModal() {
+    const role = currentUser?.role;
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>➕ Add New Student</h3>
+            <input type="text" id="studentName" placeholder="Full Name" class="input-field">
+            <input type="tel" id="studentPhone" placeholder="Phone Number" class="input-field">
+            <select id="studentClass" class="input-field">
+                <option value="">Select Class</option>
+                <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+                <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+            </select>
+            <input type="text" id="studentCombo" placeholder="Combination (e.g., PCM, MEG)" class="input-field">
+            <div class="flex-between">
+                <h4>Select Subjects</h4>
+                <button onclick="selectAllSubjects()" class="btn-info" type="button">Select All</button>
+            </div>
+            <div id="subjectGrid" class="subject-grid"></div>
+            <div class="flex" style="margin-top: 20px;">
+                <button onclick="saveStudent()" class="btn-success">✅ Register</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    loadSubjectGrid();
+}
+
+async function loadSubjectGrid() {
+    try {
+        const data = await apiCall('/subjects');
+        const subjects = data.data || [];
+        const grid = document.getElementById('subjectGrid');
+        if (grid) {
+            grid.innerHTML = subjects.map(s => `
+                <div class="subject-item" onclick="toggleSubject(this)" data-id="${s.id}">
+                    <input type="checkbox" value="${s.id}" style="width: 18px; margin: 0;">
+                    <span>${escapeHtml(s.name)} (${s.class})</span>
+                </div>
+            `).join('');
+        }
+    } catch (err) {
+        console.error('Load subjects error:', err);
+    }
+}
+
+function toggleSubject(el) {
+    const cb = el.querySelector('input');
+    cb.checked = !cb.checked;
+    el.classList.toggle('selected', cb.checked);
+}
+
+function selectAllSubjects() {
+    document.querySelectorAll('#subjectGrid .subject-item input').forEach(cb => {
+        cb.checked = true;
+        cb.closest('.subject-item')?.classList.add('selected');
+    });
+}
+
+async function saveStudent() {
+    const name = document.getElementById('studentName')?.value.trim();
+    const phone = document.getElementById('studentPhone')?.value.trim();
+    const className = document.getElementById('studentClass')?.value;
+    const combination = document.getElementById('studentCombo')?.value.trim();
+    
+    if (!name || !phone || !className) {
+        showToast('Please fill all required fields', 'error');
+        return;
+    }
+    
+    const selectedSubjects = Array.from(document.querySelectorAll('#subjectGrid input:checked'))
+        .map(cb => parseInt(cb.value));
+    
+    try {
+        const data = await apiCall('/students', 'POST', {
+            name, phone, class: className, combination: combination || null,
+            subjects: selectedSubjects, subsidiaries: []
+        });
+        
+        if (data.success) {
+            showToast('Student added successfully!', 'success');
+            document.querySelector('.modal')?.remove();
+            loadStudents();
+        }
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function deleteStudent(id) {
+    if (!confirm('Delete this student permanently?')) return;
+    try {
+        await apiCall(`/students/${id}`, 'DELETE');
+        showToast('Student deleted', 'success');
+        loadStudents();
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function editStudent(id) {
+    const student = studentsCache.find(s => s.id === id);
+    if (!student) return;
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>✏️ Edit Student</h3>
+            <input type="text" id="editName" value="${escapeHtml(student.name)}" class="input-field">
+            <input type="tel" id="editPhone" value="${escapeHtml(student.phone)}" class="input-field">
+            <select id="editClass" class="input-field">
+                <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+                <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+            </select>
+            <div class="flex" style="margin-top: 20px;">
+                <button onclick="updateStudent(${id})" class="btn-success">💾 Save</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('editClass').value = student.class;
+}
+
+async function updateStudent(id) {
+    const name = document.getElementById('editName')?.value.trim();
+    const phone = document.getElementById('editPhone')?.value.trim();
+    const className = document.getElementById('editClass')?.value;
+    
+    if (!name || !phone || !className) {
+        showToast('Please fill all fields', 'error');
+        return;
+    }
+    
+    try {
+        await apiCall(`/students/${id}`, 'PUT', { name, phone, class: className });
+        showToast('Student updated', 'success');
+        document.querySelector('.modal')?.remove();
+        loadStudents();
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function uploadStudentImage(id) {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append('image', file);
+        try {
+            await apiUpload(`/students/${id}/upload-image`, formData);
+            showToast('Photo uploaded!', 'success');
+        } catch (err) {
+            showToast(err.message, 'error');
+        }
+    };
+    input.click();
+}
+
+// ============ PART 5: TEACHER MANAGEMENT (To be continued) ==========
+// ============ PART 5: TEACHER & SUBJECT MANAGEMENT ==========
+
+// Load subjects for dropdowns
+async function loadSubjects() {
+    try {
+        const data = await apiCall('/subjects');
+        subjectsCache = data.data || [];
+    } catch (err) {
+        console.error('Load subjects error:', err);
+    }
+}
+
+// Load teacher's assigned subjects
+async function loadTeacherSubjects() {
+    try {
+        const data = await apiCall('/teacher-subjects');
+        teacherSubjectsCache = data.data || [];
+    } catch (err) {
+        console.error('Load teacher subjects error:', err);
+    }
+}
+
+// Add Teacher Modal
+function showAddTeacherModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>👨‍🏫 Add New Teacher</h3>
+            <input type="email" id="teacherEmail" placeholder="Email Address" class="input-field" required>
+            <input type="text" id="teacherName" placeholder="Full Name" class="input-field" required>
+            <select id="teacherRole" class="input-field">
+                <option value="teacher">Subject Teacher</option>
+                <option value="classteacher">Class Teacher</option>
+            </select>
+            <input type="text" id="teacherClass" placeholder="Class (for Class Teacher)" class="input-field">
+            <div class="info-msg" style="background: #fef3c7; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                ⚠️ Temporary password will be generated. Teacher must change on first login.
+            </div>
+            <div class="flex" style="margin-top: 20px;">
+                <button onclick="saveTeacher()" class="btn-success">✅ Add Teacher</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+async function saveTeacher() {
+    const email = document.getElementById('teacherEmail')?.value.trim();
+    const name = document.getElementById('teacherName')?.value.trim();
+    const role = document.getElementById('teacherRole')?.value;
+    const teacherClass = document.getElementById('teacherClass')?.value.trim();
+    
+    if (!email || !name) {
+        showToast('Email and name required', 'error');
+        return;
+    }
+    
+    const tempPassword = Math.random().toString(36).substring(2, 10);
+    
+    try {
+        await apiCall('/users/teachers', 'POST', {
+            email, name, role: role, password: tempPassword, class: teacherClass
+        });
+        showToast(`Teacher added! Temporary password: ${tempPassword}`, 'success');
+        document.querySelector('.modal')?.remove();
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// Add Subject Modal
+function showAddSubjectModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>📚 Add New Subject</h3>
+            <input type="text" id="subjectName" placeholder="Subject Name" class="input-field" required>
+            <select id="subjectClass" class="input-field">
+                <option value="">Select Class</option>
+                <option>Senior 1</option><option>Senior 2</option><option>Senior 3</option>
+                <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
+            </select>
+            <div class="flex">
+                <div style="flex: 1;">
+                    <label>Paper 1 Max Marks</label>
+                    <input type="number" id="paper1Max" value="50" class="input-field">
+                </div>
+                <div style="flex: 1;">
+                    <label>Paper 2 Max Marks</label>
+                    <input type="number" id="paper2Max" value="50" class="input-field">
+                </div>
+            </div>
+            <div class="flex" style="margin-top: 20px;">
+                <button onclick="saveSubject()" class="btn-success">✅ Add Subject</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+async function saveSubject() {
+    const name = document.getElementById('subjectName')?.value.trim();
+    const className = document.getElementById('subjectClass')?.value;
+    const paper1Max = parseInt(document.getElementById('paper1Max')?.value) || 50;
+    const paper2Max = parseInt(document.getElementById('paper2Max')?.value) || 50;
+    
+    if (!name || !className) {
+        showToast('Subject name and class required', 'error');
+        return;
+    }
+    
+    try {
+        await apiCall('/subjects', 'POST', {
+            name, class: className, paper1_max: paper1Max, paper2_max: paper2Max
+        });
+        showToast('Subject added successfully!', 'success');
+        document.querySelector('.modal')?.remove();
+        await loadSubjects();
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// Assign Teacher to Subject Modal
+async function showAssignTeacherModal() {
+    await loadSubjects();
+    await loadTeacherSubjects();
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>🔗 Assign Teacher to Subject</h3>
+            <input type="email" id="assignTeacherEmail" placeholder="Teacher Email" class="input-field" required>
+            <select id="assignSubject" class="input-field">
+                <option value="">Select Subject</option>
+                ${subjectsCache.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.class})</option>`).join('')}
+            </select>
+            <div class="flex" style="margin-top: 20px;">
+                <button onclick="assignTeacherToSubject()" class="btn-success">✅ Assign</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(modal);
+}
+
+async function assignTeacherToSubject() {
+    const teacherEmail = document.getElementById('assignTeacherEmail')?.value.trim();
+    const subjectId = document.getElementById('assignSubject')?.value;
+    const selectedSubject = subjectsCache.find(s => s.id == subjectId);
+    
+    if (!teacherEmail || !subjectId) {
+        showToast('Please select teacher and subject', 'error');
+        return;
+    }
+    
+    try {
+        await apiCall('/teacher-subjects', 'POST', {
+            teacher_email: teacherEmail,
+            subject_id: parseInt(subjectId),
+            class: selectedSubject?.class
+        });
+        showToast('Teacher assigned to subject!', 'success');
+        document.querySelector('.modal')?.remove();
+        await loadTeacherSubjects();
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+// ============ PART 6: MARKS ENTRY (Paper 1 & Paper 2) ==========
+
+async function loadSubjectStudents() {
+    const subjectId = document.getElementById('markSubject')?.value;
+    const examType = document.getElementById('markExamType')?.value;
+    
+    if (!subjectId) {
+        showToast('Please select a subject', 'error');
+        return;
+    }
+    
+    const selectedSubject = teacherSubjectsCache.find(s => s.id == subjectId);
+    if (!selectedSubject) return;
+    
+    try {
+        const data = await apiCall(`/students?class=${selectedSubject.class}`);
+        const students = data.data || [];
+        const container = document.getElementById('marksEntryList');
+        
+        if (!students.length) {
+            container.innerHTML = '<div class="text-center" style="padding: 20px;">📭 No students in this class</div>';
+            document.getElementById('saveMarksBtn').style.display = 'none';
+            return;
+        }
+        
+        let html = `<div class="table-wrapper"><table>
+            <thead><tr><th>Student</th><th>Paper 1 (/${selectedSubject.paper1_max})</th><th>Paper 2 (/${selectedSubject.paper2_max})</th><th>Total</th><th>Grade</th></tr></thead>
+            <tbody>`;
+        
+        for (const student of students) {
+            html += `
+                <tr>
+                    <td><strong>${escapeHtml(student.name)}</strong><br><small>${student.class}</small></td>
+                    <td><input type="number" id="p1_${student.id}" class="mark-input" min="0" max="${selectedSubject.paper1_max}" style="width: 80px;" placeholder="0-${selectedSubject.paper1_max}"></td>
+                    <td><input type="number" id="p2_${student.id}" class="mark-input" min="0" max="${selectedSubject.paper2_max}" style="width: 80px;" placeholder="0-${selectedSubject.paper2_max}"></td>
+                    <td><span id="total_${student.id}">-</span></td>
+                    <td><span id="grade_${student.id}" class="badge">-</span></td>
+                </tr>
+            `;
+        }
+        
+        html += `</tbody></table></div>`;
+        container.innerHTML = html;
+        document.getElementById('saveMarksBtn').style.display = 'block';
+        
+        // Add event listeners for mark inputs
+        for (const student of students) {
+            const p1Input = document.getElementById(`p1_${student.id}`);
+            const p2Input = document.getElementById(`p2_${student.id}`);
+            const updateFunc = () => calculateTotalAndGrade(student.id, selectedSubject.paper1_max, selectedSubject.paper2_max);
+            if (p1Input) p1Input.oninput = updateFunc;
+            if (p2Input) p2Input.oninput = updateFunc;
+        }
+        
+        window.currentMarkSubject = { id: subjectId, examType, class: selectedSubject.class };
+        window.currentMarkStudents = students;
+        
+    } catch (err) {
+        showToast(err.message, 'error');
+    }
+}
+
+function calculateTotalAndGrade(studentId, max1, max2) {
+    const p1 = parseInt(document.getElementById(`p1_${studentId}`)?.value) || 0;
+    const p2 = parseInt(document.getElementById(`p2_${studentId}`)?.value) || 0;
+    const total = p1 + p2;
+    const maxTotal = max1 + max2;
+    const percentage = maxTotal > 0 ? (total / maxTotal) * 100 : 0;
+    
+    let grade = 'F';
+    if (percentage >= 80) grade = 'A';
+    else if (percentage >= 70) grade = 'B';
+    else if (percentage >= 60) grade = 'C';
+    else if (percentage >= 50) grade = 'D';
+    else if (percentage >= 40) grade = 'E';
+    
+    document.getElementById(`total_${studentId}`).innerText = `${total}/${maxTotal}`;
+    document.getElementById(`grade_${studentId}`).innerHTML = `<span class="badge grade-${grade}">${grade}</span>`;
+    
+    return { total, grade, p1, p2 };
+}
+
+async function saveAllMarks() {
+    if (!window.currentMarkSubject || !window.currentMarkStudents) {
+        showToast('No subject selected', 'error');
+        return;
+    }
+    
+    const { id: subjectId, examType, class: className } = window.currentMarkSubject;
+    const marksData = [];
+    
+    for (const student of window.currentMarkStudents) {
+        const p1 = parseInt(document.getElementById(`p1_${student.id}`)?.value) || 0;
+        const p2 = parseInt(document.getElementById(`p2_${student.id}`)?.value) || 0;
+        
+        if (p1 > 0 || p2 > 0) {
+            marksData.push({
+                student_id: student.id,
+                paper1_score: p1,
+                paper2_score: p2
+            });
+        }
+    }
+    
+    if (marksData.length === 0) {
+        showToast('No marks entered', 'error');
+        return;
+    }
+    
+    let saved = 0;
+    for (const mark of marksData) {
+        try {
+            await apiCall('/marks', 'POST', {
+                student_id: mark.student_id,
+                subject_id: parseInt(subjectId),
+                paper1_score: mark.paper1_score,
+                paper2_score: mark.paper2_score,
+                exam_type: examType,
+                term: currentTerm.term,
+                year: currentTerm.year
+            });
+            saved++;
+        } catch (err) {
+            console.error(`Failed to save marks for student ${mark.student_id}:`, err);
+        }
+    }
+    
+    showToast(`Saved marks for ${saved} students!`, 'success');
+}
+
+// ============ PART 7: REPORTS & RESULTS (To be continued) ==========
+// ============ PART 6: REPORTS, RESULTS & STUDENT FUNCTIONS ==========
+        
+        // Load student results for view
+        async function viewStudentResults(studentId) {
+            try {
+                const data = await apiCall(`/students/${studentId}/results`);
+                const results = data.data || [];
+                const student = studentsCache.find(s => s.id === studentId);
+                
+                if (!results.length) {
+                    showToast('No results found for this student', 'info');
+                    return;
+                }
+                
+                let html = `<div class="modal-content" style="max-width: 700px;">
+                    <h3>📊 Results: ${escapeHtml(student?.name)}</h3>
+                    <div style="max-height: 500px; overflow-y: auto;">`;
+                
+                for (const r of results) {
+                    html += `<div class="result-card">
+                        <div class="flex-between">
+                            <strong>${r.phase} • Term ${r.term} • ${r.year}</strong>
+                            <span class="badge badge-info">Avg: ${r.average}% | Points: ${r.points}</span>
+                        </div>
+                        <div class="table-wrapper">
+                            <table style="min-width: 300px;">
+                                <thead><tr><th>Subject</th><th>Marks</th><th>Grade</th><th>Points</th></tr></thead>
+                                <tbody>`;
+                    for (const m of r.marks) {
+                        html += `<tr><td>${escapeHtml(m.subject)}</td><td>${m.marks}</td><td>${m.grade}</td><td>${m.points}</td></tr>`;
+                    }
+                    html += `</tbody></table></div></div>`;
+                }
+                
+                html += `<div class="text-center" style="margin-top: 20px;">
+                    <button onclick="this.closest('.modal').remove()" class="btn-primary">Close</button>
+                </div></div>`;
+                
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = html;
+                document.body.appendChild(modal);
+                
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        // Load student data for student dashboard
+        async function loadStudentData() {
+            try {
+                const data = await apiCall('/student/dashboard');
+                if (data.success) {
+                    const student = data.student;
+                    const marks = data.marks || [];
+                    const results = data.results || [];
+                    
+                    let html = `<div class="profile-card">
+                        <div class="flex">
+                            ${student.image ? `<img src="${student.image}" style="width: 60px; height: 60px; border-radius: 50%; object-fit: cover;">` : 
+                                `<div style="width: 60px; height: 60px; background: #dbeafe; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px;">👨‍🎓</div>`}
+                            <div style="margin-left: 15px;">
+                                <strong style="font-size: 18px;">${escapeHtml(student.name)}</strong><br>
+                                ${student.class} | ${student.combination || 'No Combination'}<br>
+                                ${student.subjects?.length || 0} Subjects registered
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                    if (marks.length > 0) {
+                        html += `<h4>📝 Recent Marks</h4>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead><tr><th>Subject</th><th>Paper 1</th><th>Paper 2</th><th>Total</th><th>Grade</th><th>Exam</th></tr></thead>
+                                <tbody>`;
+                        for (const m of marks.slice(-10)) {
+                            html += `<tr>
+                                <td>${escapeHtml(m.subject_name)}</td>
+                                <td>${m.paper1_score}/${m.paper1_max}</td>
+                                <td>${m.paper2_score}/${m.paper2_max}</td>
+                                <td><strong>${m.total}</strong></td>
+                                <td><span class="badge grade-${m.grade}">${m.grade}</span></td>
+                                <td>${m.exam_type}</td>
+                            </tr>`;
+                        }
+                        html += `</tbody></table></div>`;
+                    }
+                    
+                    if (results.length > 0) {
+                        html += `<h4>📊 Term Results</h4>`;
+                        for (const r of results.slice(-5)) {
+                            html += `<div class="result-card">
+                                <strong>${r.phase} • Term ${r.term} • ${r.year}</strong>
+                                <div>Average: ${r.average}% | Points: ${r.points}</div>
+                            </div>`;
+                        }
+                    }
+                    
+                    document.getElementById('studentResults').innerHTML = html;
+                }
+            } catch (err) {
+                console.error('Load student data error:', err);
+                document.getElementById('studentResults').innerHTML = '<div class="error">Failed to load your data</div>';
+            }
+        }
+        
+        // Request Academic Review
+        async function requestReview() {
+            const subjects = await apiCall('/subjects');
+            const subjectList = subjects.data || [];
+            
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 500px;">
+                    <h3>📝 Request Academic Review</h3>
+                    <select id="reviewSubject" class="input-field">
+                        <option value="">Select Subject</option>
+                        ${subjectList.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.class})</option>`).join('')}
+                    </select>
+                    <input type="number" id="reviewCurrentMarks" placeholder="Current Marks Received" class="input-field">
+                    <input type="number" id="reviewRequestedMarks" placeholder="Marks You Expected" class="input-field">
+                    <textarea id="reviewReason" rows="3" placeholder="Reason for review request..." class="input-field"></textarea>
+                    <div class="info-msg" style="background: #fef3c7; padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        📎 You can attach evidence (image/PDF) after submitting
+                    </div>
+                    <div class="flex" style="margin-top: 20px;">
+                        <button onclick="submitReviewRequest()" class="btn-warning">📨 Submit Request</button>
+                        <button onclick="this.closest('.modal').remove()" class="btn-danger">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        async function submitReviewRequest() {
+            const subjectId = document.getElementById('reviewSubject')?.value;
+            const currentMarks = parseInt(document.getElementById('reviewCurrentMarks')?.value) || 0;
+            const requestedMarks = parseInt(document.getElementById('reviewRequestedMarks')?.value) || 0;
+            const reason = document.getElementById('reviewReason')?.value.trim();
+            
+            if (!subjectId || !reason) {
+                showToast('Please select subject and provide a reason', 'error');
+                return;
+            }
+            
+            try {
+                await apiCall('/review-requests', 'POST', {
+                    subject_id: parseInt(subjectId),
+                    current_marks: currentMarks,
+                    requested_marks: requestedMarks,
+                    reason: reason
+                });
+                showToast('Review request submitted! Class teacher will review.', 'success');
+                document.querySelector('.modal')?.remove();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        // Generate Report (on-demand, no storage)
+        async function generateReport() {
+            const studentId = document.getElementById('reportStudent')?.value;
+            if (!studentId) {
+                showToast('Please select a student', 'error');
+                return;
+            }
+            
+            try {
+                const data = await apiCall(`/report/data/${studentId}`);
+                if (data.success) {
+                    const reportData = data.data;
+                    const html = generateReportHTML(reportData);
+                    const win = window.open('', '_blank');
+                    win.document.write(html);
+                    win.document.close();
+                    win.print();
+                } else {
+                    showToast('Failed to generate report', 'error');
+                }
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        function generateReportHTML(reportData) {
+            const { student, marks, term, summary, report_date } = reportData;
+            
+            let marksHtml = '';
+            for (const m of marks) {
+                marksHtml += `<tr>
+                    <td>${escapeHtml(m.subject)}</td>
+                    <td>${m.paper1_score}/${m.paper1_max}</td>
+                    <td>${m.paper2_score}/${m.paper2_max}</td>
+                    <td><strong>${m.total}</strong></td>
+                    <td><span class="badge grade-${m.grade}">${m.grade}</span></td>
+                    <td>${escapeHtml(m.teacher)}</td>
+                </tr>`;
+            }
+            
+            return `<!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Student Report - ${escapeHtml(student.name)}</title>
+                <style>
+                    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; line-height: 1.6; }
+                    .report-container { max-width: 1000px; margin: 0 auto; border: 2px solid #1e40af; border-radius: 16px; padding: 30px; }
+                    .header { text-align: center; border-bottom: 3px solid #3b82f6; padding-bottom: 20px; margin-bottom: 20px; }
+                    .school-name { font-size: 28px; font-weight: bold; color: #1e40af; }
+                    .report-title { font-size: 20px; color: #374151; margin-top: 5px; }
+                    .student-info { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; }
+                    table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+                    th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+                    th { background: #f1f5f9; }
+                    .grade-A { background: #dcfce7; color: #166534; }
+                    .grade-B { background: #d1fae5; color: #065f46; }
+                    .grade-C { background: #fef9c3; color: #854d0e; }
+                    .grade-D { background: #fed7aa; color: #9a3412; }
+                    .grade-E { background: #fecaca; color: #991b1b; }
+                    .grade-F { background: #f3f4f6; color: #374151; }
+                    .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: 600; }
+                    .summary { background: #eff6ff; padding: 15px; border-radius: 12px; margin: 20px 0; }
+                    .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 12px; }
+                    @media print { body { margin: 0; padding: 20px; } .no-print { display: none; } }
+                </style>
+            </head>
+            <body>
+                <div class="report-container">
+                    <div class="header">
+                        <div class="school-name">RAVEN SYSTEMS</div>
+                        <div class="report-title">Student Academic Report</div>
+                    </div>
+                    <div class="student-info">
+                        <div><strong>Name:</strong> ${escapeHtml(student.name)}<br><strong>Class:</strong> ${student.class}<br><strong>Admission:</strong> #${student.id}</div>
+                        <div><strong>Term:</strong> ${term.term} - ${term.year}<br><strong>Phone:</strong> ${student.phone}<br><strong>Report Date:</strong> ${report_date?.split('T')[0]}</div>
+                    </div>
+                    <h3>Subject Performance</h3>
+                    <table><thead><tr><th>Subject</th><th>Paper 1</th><th>Paper 2</th><th>Total</th><th>Grade</th><th>Teacher</th></tr></thead>
+                    <tbody>${marksHtml || '<tr><td colspan="6" class="text-center">No marks recorded</td></tr>'}</tbody></table>
+                    <div class="summary">
+                        <strong>Summary</strong><br>
+                        Total Marks: ${summary.total_obtained}/${summary.total_possible} (${summary.percentage}%)<br>
+                        Overall Grade: <span class="badge grade-${summary.overall_grade}">${summary.overall_grade}</span>
+                    </div>
+                    <div class="footer">Generated on ${report_date?.replace('T', ' ').substring(0, 19)}<br>This is a computer-generated report.</div>
+                </div>
+                <div class="no-print" style="text-align: center; margin-top: 20px;">
+                    <button onclick="window.print()" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 8px;">🖨️ Print / Save as PDF</button>
+                </div>
+            </body>
+            </html>`;
+        }
+        
+        async function loadReportStudentSelect() {
+            try {
+                const data = await apiCall('/students');
+                const students = data.data || [];
+                const select = document.getElementById('reportStudent');
+                if (select) {
+                    select.innerHTML = '<option value="">Select Student</option>' + 
+                        students.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.class})</option>`).join('');
+                }
+            } catch (err) {
+                console.error('Load report students error:', err);
+            }
+        }
+        
+        // Load announcements
+        async function loadAnnouncements() {
+            try {
+                const data = await apiCall('/announcements');
+                const announcements = data.data || [];
+                const container = document.getElementById('announcementsList');
+                if (container) {
+                    if (!announcements.length) {
+                        container.innerHTML = '<div class="text-center">No announcements yet</div>';
+                    } else {
+                        container.innerHTML = announcements.map(a => `
+                            <div class="announce-card">
+                                <strong>📢 ${escapeHtml(a.title)}</strong>
+                                <small style="color: #64748b; display: block;">Posted: ${a.created_at?.split('T')[0]}</small>
+                                <p style="margin-top: 5px;">${escapeHtml(a.body)}</p>
+                            </div>
+                        `).join('');
+                    }
+                }
+            } catch (err) {
+                console.error('Load announcements error:', err);
+            }
+        }
+        
+        // Change Password Modal
+        function showChangePasswordModal() {
+            const modal = document.createElement('div');
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content" style="max-width: 400px;">
+                    <h3>🔒 Change Password</h3>
+                    <input type="password" id="oldPassword" placeholder="Current Password" class="input-field">
+                    <input type="password" id="newPassword" placeholder="New Password (min 6 chars)" class="input-field">
+                    <input type="password" id="confirmPassword" placeholder="Confirm New Password" class="input-field">
+                    <div class="flex" style="margin-top: 20px;">
+                        <button onclick="changePassword()" class="btn-primary">✅ Update Password</button>
+                        <button onclick="this.closest('.modal').remove()" class="btn-danger">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        async function changePassword() {
+            const oldPassword = document.getElementById('oldPassword')?.value;
+            const newPassword = document.getElementById('newPassword')?.value;
+            const confirmPassword = document.getElementById('confirmPassword')?.value;
+            
+            if (!oldPassword || !newPassword) {
+                showToast('Please fill all fields', 'error');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                showToast('New passwords do not match', 'error');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                showToast('Password must be at least 6 characters', 'error');
+                return;
+            }
+            
+            try {
+                await apiCall('/auth/change-password', 'POST', {
+                    old_password: oldPassword,
+                    new_password: newPassword
+                });
+                showToast('Password changed successfully!', 'success');
+                document.querySelector('.modal')?.remove();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        // ============ PART 7: INITIALIZATION & HELPER FUNCTIONS ==========
+        
+        // Class Teacher specific functions
+        async function loadClassTeacherData() {
+            // Load students for class teacher's class
+            await loadStudents();
+            // Load review requests
+            try {
+                const data = await apiCall('/review-requests');
+                const requests = data.data || [];
+                if (requests.length) {
+                    const notificationCount = requests.filter(r => r.status === 'pending').length;
+                    if (notificationCount > 0) {
+                        showToast(`📋 You have ${notificationCount} pending review requests`, 'info');
+                    }
+                }
+            } catch (err) {
+                console.error('Load review requests error:', err);
+            }
+        }
+        
+        function viewReviewRequests() {
+            showToast('Review requests feature - check notifications panel', 'info');
+        }
+        
+        function viewNotifications() {
+            showToast('Notifications feature - coming soon', 'info');
+        }
+        
+        // CSV Export
+        async function exportCSV() {
+            try {
+                window.open(`${API_BASE}/students/export`, '_blank');
+                showToast('Export started', 'success');
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        function importCSV() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.csv';
+            input.onchange = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const formData = new FormData();
+                formData.append('file', file);
+                try {
+                    const data = await apiUpload('/students/import', formData);
+                    showToast(`Imported ${data.imported || 0} students`, 'success');
+                    loadStudents();
+                } catch (err) {
+                    showToast(err.message, 'error');
+                }
+            };
+            input.click();
+        }
+        
+        function showPromoteModal() {
+            if (confirm('Promote all students to next class?\n\nS6 → Alumni | S5 → S6 | S4 → S5 | S3 → S4 | S2 → S3 | S1 → S2')) {
+                promoteStudents();
+            }
+        }
+        
+        async function promoteStudents() {
+            try {
+                const data = await apiCall('/admin/promote', 'POST');
+                showToast(`Promoted ${data.promoted || 0} students`, 'success');
+                loadStudents();
+            } catch (err) {
+                showToast(err.message, 'error');
+            }
+        }
+        
+        // Login Screen
+        function showLogin() {
+            const app = document.getElementById('app');
+            app.innerHTML = `
+                <div class="login-box">
+                    <div class="card">
+                        <h1>🐦 RAVEN SYSTEMS</h1>
+                        <div style="background: #dbeafe; border-radius: 12px; padding: 12px; margin-bottom: 20px; font-size: 13px;">
+                            📱 Students: Use Phone Number<br>
+                            👨‍🏫 Teachers/Admin: Use Email
+                        </div>
+                        <input type="text" id="loginInput" placeholder="Phone Number or Email" class="input-field" autocomplete="off">
+                        <input type="password" id="loginPassword" placeholder="Password" class="input-field">
+                        <button onclick="login()" class="btn-primary" style="width: 100%; margin-top: 10px;">🔐 Login</button>
+                        <div class="text-center" style="margin-top: 10px;">
+                            <button onclick="forgotPassword()" class="btn-warning" style="background: none; color: #f59e0b;">Forgot Password? (Students only)</button>
+                        </div>
+                        <div id="loginError" class="error text-center" style="margin-top: 10px;"></div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('loginInput').onkeypress = (e) => { if (e.key === 'Enter') login(); };
+            document.getElementById('loginPassword').onkeypress = (e) => { if (e.key === 'Enter') login(); };
+        }
+        
+        // PWA Installation
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            const installBtn = document.createElement('button');
+            installBtn.innerHTML = '📱 Install App';
+            installBtn.className = 'btn-primary';
+            installBtn.style.position = 'fixed';
+            installBtn.style.bottom = '80px';
+            installBtn.style.right = '20px';
+            installBtn.style.zIndex = '9999';
+            installBtn.style.borderRadius = '40px';
+            installBtn.style.padding = '12px 20px';
+            installBtn.onclick = () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(() => { installBtn.remove(); });
+            };
+            setTimeout(() => {
+                if (deferredPrompt && !document.querySelector('.install-btn')) {
+                    document.body.appendChild(installBtn);
+                }
+            }, 3000);
+        });
+        
+        // Online/Offline detection
+        window.addEventListener('online', () => {
+            document.getElementById('offlineBanner')?.classList.remove('show');
+            showToast('🟢 Back online', 'success');
+        });
+        window.addEventListener('offline', () => {
+            document.getElementById('offlineBanner')?.classList.add('show');
+        });
+        
+        // Initialize
+        async function init() {
+            if (authToken) {
+                try {
+                    await apiCall('/auth/verify');
+                    const userData = JSON.parse(atob(authToken.split('.')[1]));
+                    currentUser = { role: userData.role, id: userData.user_id };
+                    await loadDashboard();
+                } catch (e) {
+                    localStorage.removeItem('raven_token');
+                    authToken = null;
+                    showLogin();
+                }
+            } else {
+                showLogin();
+            }
+        }
+        
+        init();
+    </script>
+</body>
+</html>
