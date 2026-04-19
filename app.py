@@ -17,16 +17,6 @@ import traceback
 
 app = Flask(__name__)
 CORS(app, origins=['https://raven-png.github.io'])
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    return response
-
-@app.route('/path:path>', methods=['OPTIONS'])
-def options_handler(path):
-    return '', 200
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'schoolhub-secret-key-2026')
 app.config['JWT_EXPIRATION_HOURS'] = 24
