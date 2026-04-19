@@ -16,7 +16,7 @@ import psycopg2.extras
 import traceback
 
 app = Flask(__name__)
-CORS(app, origins=['https://raven-png.github.io')
+CORS(app, origins=['https://raven-png.github.io']
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Origin', '*')
