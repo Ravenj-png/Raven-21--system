@@ -413,7 +413,7 @@
     </style>
 </head>
 <body>
-    <div class="offline-banner" id="offlineBanner">⚠️ You are offline. Some features may be limited.</div>
+    <div class="offline-banner" id="offlineBanner"> You are offline. Some features may be limited.</div>
     <div class="container" id="app"></div>
 
     <script>
@@ -494,7 +494,7 @@ async function studentLogin() {
     const errorDiv = document.getElementById('loginError');
     
     if (!phone) {
-        if (errorDiv) errorDiv.innerHTML = '📱 Phone number required';
+        if (errorDiv) errorDiv.innerHTML = ' Phone number required';
         return;
     }
     
@@ -502,12 +502,12 @@ async function studentLogin() {
         const data = await apiCall('/auth/student/login', 'POST', { phone, password });
         
         if (data.require_password_creation) {
-            if (errorDiv) errorDiv.innerHTML = '🔐 First time! Enter a password (min 4 chars) and login again to create your account.';
+            if (errorDiv) errorDiv.innerHTML = ' First time! Enter a password (min 4 chars) and login again to create your account.';
             return;
         }
         
         if (data.password_created) {
-            if (errorDiv) errorDiv.innerHTML = '✅ Password created! Logging you in...';
+            if (errorDiv) errorDiv.innerHTML = ' Password created! Logging you in...';
             setTimeout(() => studentLogin(), 1500);
             return;
         }
@@ -520,7 +520,7 @@ async function studentLogin() {
             showToast(`Welcome ${currentUser.name}!`, 'success');
         }
     } catch (err) {
-        if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+        if (errorDiv) errorDiv.innerHTML = ` ${err.message}`;
     }
 }
 
@@ -531,7 +531,7 @@ async function staffLogin() {
     const errorDiv = document.getElementById('loginError');
     
     if (!email || !password) {
-        if (errorDiv) errorDiv.innerHTML = '📧 Email and password required';
+        if (errorDiv) errorDiv.innerHTML = ' Email and password required';
         return;
     }
     
@@ -546,7 +546,7 @@ async function staffLogin() {
             showToast(`Welcome ${currentUser.email}!`, 'success');
         }
     } catch (err) {
-        if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+        if (errorDiv) errorDiv.innerHTML = ` ${err.message}`;
     }
 }
 
@@ -570,12 +570,12 @@ async function login() {
             const data = await apiCall('/auth/student/login', 'POST', { phone: input, password });
             
             if (data.require_password_creation) {
-                if (errorDiv) errorDiv.innerHTML = '🔐 First time! Enter a password (min 4 chars) and login again to create your account.';
+                if (errorDiv) errorDiv.innerHTML = ' First time! Enter a password (min 4 chars) and login again to create your account.';
                 return;
             }
             
             if (data.password_created) {
-                if (errorDiv) errorDiv.innerHTML = '✅ Password created! Logging you in...';
+                if (errorDiv) errorDiv.innerHTML = ' Password created! Logging you in...';
                 setTimeout(() => login(), 1500);
                 return;
             }
@@ -588,7 +588,7 @@ async function login() {
                 showToast(`Welcome ${currentUser.name}!`, 'success');
             }
         } catch (err) {
-            if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+            if (errorDiv) errorDiv.innerHTML = ` ${err.message}`;
         }
     } else {
         // Staff login (admin/teacher)
@@ -603,7 +603,7 @@ async function login() {
                 showToast(`Welcome ${currentUser.email}!`, 'success');
             }
         } catch (err) {
-            if (errorDiv) errorDiv.innerHTML = `❌ ${err.message}`;
+            if (errorDiv) errorDiv.innerHTML = ` ${err.message}`;
         }
     }
 }
@@ -660,15 +660,15 @@ function renderDashboard() {
         <div class="card">
             <div class="flex-between">
                 <div>
-                    <h2>🐦 Raven Systems</h2>
+                    <h2> Raven Tech Systems</h2>
                     <div class="flex" style="margin-top: 8px;">
                         <span class="badge badge-info">${role.toUpperCase()}</span>
-                        <span id="userNameDisplay">👤 ${escapeHtml(currentUser.name || currentUser.email || 'User')}</span>
+                        <span id="userNameDisplay"> ${escapeHtml(currentUser.name || currentUser.email || 'User')}</span>
                     </div>
                 </div>
                 <div class="flex">
-                    <button onclick="showChangePasswordModal()" class="btn-secondary">🔒 Change Password</button>
-                    <button onclick="logout()" class="btn-danger">🚪 Logout</button>
+                    <button onclick="showChangePasswordModal()" class="btn-secondary"> Change Password</button>
+                    <button onclick="logout()" class="btn-danger"> Logout</button>
                 </div>
             </div>
         </div>
@@ -678,20 +678,20 @@ function renderDashboard() {
     if (role === 'admin') {
         html += `
             <div id="adminPanel" class="card">
-                <h3>👑 Admin Controls</h3>
+                <h3> Admin Controls</h3>
                 <div class="flex">
-                    <button onclick="showAddStudentModal()" class="btn-success">➕ Add Student</button>
-                    <button onclick="showAddTeacherModal()" class="btn-primary">👨‍🏫 Add Teacher</button>
-                    <button onclick="showAddSubjectModal()" class="btn-info">📚 Add Subject</button>
-                    <button onclick="showAssignTeacherModal()" class="btn-warning">🔗 Assign Teacher to Subject</button>
-                    <button onclick="showPromoteModal()" class="btn-secondary">⬆️ Promote Students</button>
-                    <button onclick="exportCSV()" class="btn-secondary">📎 Export CSV</button>
-                    <button onclick="importCSV()" class="btn-secondary">📁 Import CSV</button>
+                    <button onclick="showAddStudentModal()" class="btn-success"> Add Student</button>
+                    <button onclick="showAddTeacherModal()" class="btn-primary"> Add Teacher</button>
+                    <button onclick="showAddSubjectModal()" class="btn-info"> Add Subject</button>
+                    <button onclick="showAssignTeacherModal()" class="btn-warning"> Assign Teacher to Subject</button>
+                    <button onclick="showPromoteModal()" class="btn-secondary"> Promote Students</button>
+                    <button onclick="exportCSV()" class="btn-secondary"> Export CSV</button>
+                    <button onclick="importCSV()" class="btn-secondary"> Import CSV</button>
                 </div>
             </div>
             
             <div id="studentsSection" class="card">
-                <h3>📚 Students Management</h3>
+                <h3> Students Management</h3>
                 <div class="filters" id="classFilters"></div>
                 <input type="text" id="searchInput" placeholder="🔍 Search by name or phone..." class="input-field" style="margin: 10px 0;">
                 <div class="table-wrapper" id="studentsTable"></div>
@@ -703,11 +703,11 @@ function renderDashboard() {
     if (role === 'classteacher') {
         html += `
             <div id="classTeacherPanel" class="card">
-                <h3>📝 Class Teacher Actions</h3>
+                <h3> Class Teacher Actions</h3>
                 <div class="flex">
-                    <button onclick="showAddStudentModal()" class="btn-success">➕ Add Student to Class</button>
-                    <button onclick="viewReviewRequests()" class="btn-warning">📋 Review Requests</button>
-                    <button onclick="viewNotifications()" class="btn-info">🔔 Notifications</button>
+                    <button onclick="showAddStudentModal()" class="btn-success"> Add Student to Class</button>
+                    <button onclick="viewReviewRequests()" class="btn-warning"> Review Requests</button>
+                    <button onclick="viewNotifications()" class="btn-info"> Notifications</button>
                 </div>
             </div>
             
@@ -723,7 +723,7 @@ function renderDashboard() {
     if (role === 'teacher' || role === 'classteacher') {
         html += `
             <div id="teacherPanel" class="card">
-                <h3>✏️ Enter Marks</h3>
+                <h3> Enter Marks</h3>
                 <div class="flex">
                     <select id="markSubject" class="input-field" style="width: 250px;">
                         <option value="">Select Subject</option>
@@ -737,7 +737,7 @@ function renderDashboard() {
                     <button onclick="loadSubjectStudents()" class="btn-primary">Load Students</button>
                 </div>
                 <div id="marksEntryList" style="margin-top: 20px;"></div>
-                <button onclick="saveAllMarks()" id="saveMarksBtn" class="btn-success" style="display: none; margin-top: 15px;">💾 Save All Marks</button>
+                <button onclick="saveAllMarks()" id="saveMarksBtn" class="btn-success" style="display: none; margin-top: 15px;"> Save All Marks</button>
             </div>
         `;
     }
@@ -746,13 +746,13 @@ function renderDashboard() {
     if (role === 'student' || role === 'classteacher') {
         html += `
             <div id="studentPanel" class="card">
-                <h3>📊 My Performance</h3>
+                <h3> My Performance</h3>
                 <div id="studentResults"></div>
-                <button onclick="requestReview()" class="btn-warning">📝 Request Academic Review</button>
+                <button onclick="requestReview()" class="btn-warning"> Request Academic Review</button>
             </div>
             
             <div class="card">
-                <h3>📢 Announcements</h3>
+                <h3> Announcements</h3>
                 <div id="announcementsList"></div>
             </div>
         `;
@@ -761,12 +761,12 @@ function renderDashboard() {
     // Reports Section (for all roles)
     html += `
         <div class="card">
-            <h3>📄 Generate Report</h3>
+            <h3> Generate Report</h3>
             <div class="flex">
                 <select id="reportStudent" class="input-field" style="width: 250px;">
                     <option value="">Select Student</option>
                 </select>
-                <button onclick="generateReport()" class="btn-primary">📑 Generate Report</button>
+                <button onclick="generateReport()" class="btn-primary"> Generate Report</button>
             </div>
         </div>
     `;
@@ -821,7 +821,7 @@ function renderClassFilters() {
     
     container.innerHTML = classes.map(c => `
         <div class="filter-chip ${currentFilter === c ? 'active' : ''}" onclick="setFilter('${c}')">
-            ${c === 'all' ? '📋 All' : c}
+            ${c === 'all' ? ' All' : c}
         </div>
     `).join('');
 }
@@ -837,7 +837,7 @@ function renderStudentsTable() {
     if (!container) return;
     
     if (!studentsCache.length) {
-        container.innerHTML = '<div class="text-center" style="padding: 32px;">📭 No students found</div>';
+        container.innerHTML = '<div class="text-center" style="padding: 32px;"> No students found</div>';
         return;
     }
     
@@ -858,10 +858,10 @@ function renderStudentsTable() {
                 <td>${s.class}</td>
                 <td>${subjCount} subjects</td>
                 <td class="flex" style="gap: 5px;">
-                    <button onclick="viewStudentResults(${s.id})" class="btn-info">📊 Results</button>
-                    <button onclick="editStudent(${s.id})" class="btn-secondary">✏️ Edit</button>
-                    <button onclick="deleteStudent(${s.id})" class="btn-danger">🗑️ Delete</button>
-                    <button onclick="uploadStudentImage(${s.id})" class="btn-primary">📷 Photo</button>
+                    <button onclick="viewStudentResults(${s.id})" class="btn-info"> Results</button>
+                    <button onclick="editStudent(${s.id})" class="btn-secondary"> Edit</button>
+                    <button onclick="deleteStudent(${s.id})" class="btn-danger"> Delete</button>
+                    <button onclick="uploadStudentImage(${s.id})" class="btn-primary"> Photo</button>
                 </td>
             </tr>
         `;
@@ -893,8 +893,8 @@ function showAddStudentModal() {
             </div>
             <div id="subjectGrid" class="subject-grid"></div>
             <div class="flex" style="margin-top: 20px;">
-                <button onclick="saveStudent()" class="btn-success">✅ Register</button>
-                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+                <button onclick="saveStudent()" class="btn-success"> Register</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger"> Cancel</button>
             </div>
         </div>
     `;
@@ -982,7 +982,7 @@ async function editStudent(id) {
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 500px;">
-            <h3>✏️ Edit Student</h3>
+            <h3> Edit Student</h3>
             <input type="text" id="editName" value="${escapeHtml(student.name)}" class="input-field">
             <input type="tel" id="editPhone" value="${escapeHtml(student.phone)}" class="input-field">
             <select id="editClass" class="input-field">
@@ -990,8 +990,8 @@ async function editStudent(id) {
                 <option>Senior 4</option><option>Senior 5</option><option>Senior 6</option>
             </select>
             <div class="flex" style="margin-top: 20px;">
-                <button onclick="updateStudent(${id})" class="btn-success">💾 Save</button>
-                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+                <button onclick="updateStudent(${id})" class="btn-success"> Save</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger"> Cancel</button>
             </div>
         </div>
     `;
@@ -1067,7 +1067,7 @@ function showAddTeacherModal() {
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 500px;">
-            <h3>👨‍🏫 Add New Teacher</h3>
+            <h3> Add New Teacher</h3>
             <input type="email" id="teacherEmail" placeholder="Email Address" class="input-field" required>
             <input type="text" id="teacherName" placeholder="Full Name" class="input-field" required>
             <select id="teacherRole" class="input-field">
@@ -1076,11 +1076,11 @@ function showAddTeacherModal() {
             </select>
             <input type="text" id="teacherClass" placeholder="Class (for Class Teacher)" class="input-field">
             <div class="info-msg" style="background: #fef3c7; padding: 10px; border-radius: 8px; margin: 10px 0;">
-                ⚠️ Temporary password will be generated. Teacher must change on first login.
+                 Temporary password will be generated. Teacher must change on first login.
             </div>
             <div class="flex" style="margin-top: 20px;">
-                <button onclick="saveTeacher()" class="btn-success">✅ Add Teacher</button>
-                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+                <button onclick="saveTeacher()" class="btn-success"> Add Teacher</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger"> Cancel</button>
             </div>
         </div>
     `;
@@ -1117,7 +1117,7 @@ function showAddSubjectModal() {
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 500px;">
-            <h3>📚 Add New Subject</h3>
+            <h3> Add New Subject</h3>
             <input type="text" id="subjectName" placeholder="Subject Name" class="input-field" required>
             <select id="subjectClass" class="input-field">
                 <option value="">Select Class</option>
@@ -1135,8 +1135,8 @@ function showAddSubjectModal() {
                 </div>
             </div>
             <div class="flex" style="margin-top: 20px;">
-                <button onclick="saveSubject()" class="btn-success">✅ Add Subject</button>
-                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+                <button onclick="saveSubject()" class="btn-success"> Add Subject</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger"> Cancel</button>
             </div>
         </div>
     `;
@@ -1175,15 +1175,15 @@ async function showAssignTeacherModal() {
     modal.className = 'modal';
     modal.innerHTML = `
         <div class="modal-content" style="max-width: 500px;">
-            <h3>🔗 Assign Teacher to Subject</h3>
+            <h3> Assign Teacher to Subject</h3>
             <input type="email" id="assignTeacherEmail" placeholder="Teacher Email" class="input-field" required>
             <select id="assignSubject" class="input-field">
                 <option value="">Select Subject</option>
                 ${subjectsCache.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.class})</option>`).join('')}
             </select>
             <div class="flex" style="margin-top: 20px;">
-                <button onclick="assignTeacherToSubject()" class="btn-success">✅ Assign</button>
-                <button onclick="this.closest('.modal').remove()" class="btn-danger">❌ Cancel</button>
+                <button onclick="assignTeacherToSubject()" class="btn-success"> Assign</button>
+                <button onclick="this.closest('.modal').remove()" class="btn-danger"> Cancel</button>
             </div>
         </div>
     `;
@@ -1360,7 +1360,7 @@ async function saveAllMarks() {
                 }
                 
                 let html = `<div class="modal-content" style="max-width: 700px;">
-                    <h3>📊 Results: ${escapeHtml(student?.name)}</h3>
+                    <h3> Results: ${escapeHtml(student?.name)}</h3>
                     <div style="max-height: 500px; overflow-y: auto;">`;
                 
                 for (const r of results) {
@@ -1415,7 +1415,7 @@ async function saveAllMarks() {
                     </div>`;
                     
                     if (marks.length > 0) {
-                        html += `<h4>📝 Recent Marks</h4>
+                        html += `<h4> Recent Marks</h4>
                         <div class="table-wrapper">
                             <table>
                                 <thead><tr><th>Subject</th><th>Paper 1</th><th>Paper 2</th><th>Total</th><th>Grade</th><th>Exam</th></tr></thead>
@@ -1434,7 +1434,7 @@ async function saveAllMarks() {
                     }
                     
                     if (results.length > 0) {
-                        html += `<h4>📊 Term Results</h4>`;
+                        html += `<h4> Term Results</h4>`;
                         for (const r of results.slice(-5)) {
                             html += `<div class="result-card">
                                 <strong>${r.phase} • Term ${r.term} • ${r.year}</strong>
@@ -1460,7 +1460,7 @@ async function saveAllMarks() {
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content" style="max-width: 500px;">
-                    <h3>📝 Request Academic Review</h3>
+                    <h3> Request Academic Review</h3>
                     <select id="reviewSubject" class="input-field">
                         <option value="">Select Subject</option>
                         ${subjectList.map(s => `<option value="${s.id}">${escapeHtml(s.name)} (${s.class})</option>`).join('')}
@@ -1643,12 +1643,12 @@ async function saveAllMarks() {
             modal.className = 'modal';
             modal.innerHTML = `
                 <div class="modal-content" style="max-width: 400px;">
-                    <h3>🔒 Change Password</h3>
+                    <h3> Change Password</h3>
                     <input type="password" id="oldPassword" placeholder="Current Password" class="input-field">
                     <input type="password" id="newPassword" placeholder="New Password (min 6 chars)" class="input-field">
                     <input type="password" id="confirmPassword" placeholder="Confirm New Password" class="input-field">
                     <div class="flex" style="margin-top: 20px;">
-                        <button onclick="changePassword()" class="btn-primary">✅ Update Password</button>
+                        <button onclick="changePassword()" class="btn-primary"> Update Password</button>
                         <button onclick="this.closest('.modal').remove()" class="btn-danger">Cancel</button>
                     </div>
                 </div>
@@ -1701,7 +1701,7 @@ async function saveAllMarks() {
                 if (requests.length) {
                     const notificationCount = requests.filter(r => r.status === 'pending').length;
                     if (notificationCount > 0) {
-                        showToast(`📋 You have ${notificationCount} pending review requests`, 'info');
+                        showToast(` You have ${notificationCount} pending review requests`, 'info');
                     }
                 }
             } catch (err) {
@@ -1769,14 +1769,14 @@ async function saveAllMarks() {
             app.innerHTML = `
                 <div class="login-box">
                     <div class="card">
-                        <h1>🐦 RAVEN SYSTEMS</h1>
+                        <h1> RAVEN SYSTEMS</h1>
                         <div style="background: #dbeafe; border-radius: 12px; padding: 12px; margin-bottom: 20px; font-size: 13px;">
-                            📱 Students: Use Phone Number<br>
-                            👨‍🏫 Teachers/Admin: Use Email
+                             Students: Use Phone Number<br>
+                             Teachers/Admin: Use Email
                         </div>
                         <input type="text" id="loginInput" placeholder="Phone Number or Email" class="input-field" autocomplete="off">
                         <input type="password" id="loginPassword" placeholder="Password" class="input-field">
-                        <button onclick="login()" class="btn-primary" style="width: 100%; margin-top: 10px;">🔐 Login</button>
+                        <button onclick="login()" class="btn-primary" style="width: 100%; margin-top: 10px;"> Login</button>
                         <div class="text-center" style="margin-top: 10px;">
                             <button onclick="forgotPassword()" class="btn-warning" style="background: none; color: #f59e0b;">Forgot Password? (Students only)</button>
                         </div>
@@ -1817,7 +1817,7 @@ async function saveAllMarks() {
         // Online/Offline detection
         window.addEventListener('online', () => {
             document.getElementById('offlineBanner')?.classList.remove('show');
-            showToast('🟢 Back online', 'success');
+            showToast(' Back online', 'success');
         });
         window.addEventListener('offline', () => {
             document.getElementById('offlineBanner')?.classList.add('show');
